@@ -23,7 +23,7 @@ Resources:
           Type: Schedule
           Properties:
             Name: SftpCron
-            Schedule: rate(1 minute)
+            Schedule: rate(5 minute)
             Enabled: false
 Outputs:
   SftpFunction:
