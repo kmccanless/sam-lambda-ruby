@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+
+  Sample SAM Template for sam-app
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 30
+
+Resources:
+  SftpFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: app.handler
+      Role: arn:aws:iam::002232816753:role/Lambda_SSM_Read_Params
+      Runtime: ruby2.7
+      Events:
+        RunSFTP:
+          Type: Schedule
+          Properties:
+            Name: SftpCron
+            Schedule: rate(1 minute)
+            Enabled: false
+Outputs:
+  SftpFunction:
+    Description: "SftpFunction ARN"
+    Value: !GetAtt SftpFunction.Arn
